@@ -1,1 +1,1 @@
-# get-google-calendar-events-api-php
+# Get Google Calendar Events Api PHP
