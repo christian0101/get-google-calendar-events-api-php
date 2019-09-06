@@ -62,7 +62,7 @@ function get_upcoming_events($_G_API, $_calendarId, $_max_events = 4) {
     foreach ($events->getItems() as $event) {
         $result .= '<div class="event-container">';
 
-        // Convert date to month and day
+        // Store event's date as string 
         $eventDateStr = $event->start->dateTime;
         if(empty($eventDateStr)) {
             // it's an all day event
