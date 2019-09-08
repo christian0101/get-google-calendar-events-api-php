@@ -1,6 +1,6 @@
 # Get Google Calendar Events Api PHP
 
-This api/function gets upcoming events from a Google calendar by id using Google’s API v3.
+Api/Function that retrieves upcoming events from a Google calendar by id using Google’s API v3, written in PHP.
 
 Posted [initially](https://spunmonkey.com/display-contents-google-calendar-php/) by Sarah Bailey.
 
