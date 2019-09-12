@@ -27,7 +27,7 @@ include(__DIR__.'/vendor/autoload.php');
  *        The calendar for this script must have all events viewable in
  *        sharing settings.
  * @param $_max_events maximum number of events to be requested, default (4).
- * @return html formatted event(s).
+ * @return Google_Service_Calendar_Events object.
  */
 function get_upcoming_events($_G_API, $_calendarId, $_max_events = 4) {
     // used in Greece, thus the timezone and locale
