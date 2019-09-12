@@ -34,8 +34,6 @@ function get_upcoming_events($_G_API, $_calendarId, $_max_events = 4) {
     date_default_timezone_set('Europe/Athens');
     setlocale(LC_TIME, 'el_GR.UTF-8');
 
-    $result = '';
-
     // New Google client
     $client = new Google_Client();
     $client->setApplicationName("Calendar of Upcoming Events");
@@ -54,55 +52,58 @@ function get_upcoming_events($_G_API, $_calendarId, $_max_events = 4) {
         'maxResults' => $_max_events
     );
 
-    // save returned results
-    $events = $cal->events->listEvents($_calendarId, $params);
-    $calTimeZone = $events->timeZone;
+    // return results
+    return $cal->events->listEvents($_calendarId, $params);
+}
 
-    // iterate over the events
-    foreach ($events->getItems() as $event) {
-        $result .= '<div class="event-container">';
+function output_upcoming_events($events) {
+  $html_res = '';
+  $calTimeZone = $events->timeZone;
 
-        // Convert date to month and day
-        $eventDateStr = $event->start->dateTime;
-        if(empty($eventDateStr)) {
-            // it's an all day event
-            $eventDateStr = $event->start->date;
-        }
+  // iterate over the events
+  foreach ($events->getItems() as $event) {
+      // Convert date to month and day
+      $eventDateStr = $event->start->dateTime;
+      if(empty($eventDateStr)) {
+          // it's an all day event
+          $eventDateStr = $event->start->date;
+      }
 
-        $temp_timezone = $event->start->timeZone;
+      $temp_timezone = $event->start->timeZone;
 
-        if (!empty($temp_timezone)) {
-            $timezone = new DateTimeZone($temp_timezone);
-        } else {
-            // Set your default timezone in case your events don't have one
-            $timezone = new DateTimeZone($calTimeZone);
-        }
+      if (!empty($temp_timezone)) {
+          $timezone = new DateTimeZone($temp_timezone);
+      } else {
+          // Set your default timezone in case your events don't have one
+          $timezone = new DateTimeZone($calTimeZone);
+      }
 
-        $link = $event->htmlLink;
+      $link = $event->htmlLink;
 
-        // add tz to event link
-        // prevents google from displaying everything in gmt
-        $TZlink = $link . "&ctz=" . $calTimeZone;
+      // add tz to event link
+      // prevents google from displaying everything in gmt
+      $TZlink = $link . "&ctz=" . $calTimeZone;
 
-        // https://www.php.net/manual/en/function.strtotime.php
-        $month_name = strftime("%b", strtotime($eventDateStr));
-        $day_num = strftime("%e", strtotime($eventDateStr));
+      // https://www.php.net/manual/en/function.strtotime.php
+      $month_name = strftime("%b", strtotime($eventDateStr));
+      $day_num = strftime("%e", strtotime($eventDateStr));
 
-        // format html output
-        $result .= '<div class="eventDate">';
-        $result .= '<span class="month">'.$month_name.'</span><br>';
-        $result .= '<span class="day"><a href="'.$TZlink.'" target="_blank">'.$day_num.'</a></span>';
-        $result .= '<span class="dayTrail"></span></div>';
-        $result .= '<div class="eventBody">';
-        $result .= '<p><a href="'.$TZlink.'" target="_blank">'.$event->summary.'</a></p>';
-        $result .= '</div></div>';
-    }
+      // format html output
+      $html_res .= '<div class="event-container">';
+      $html_res .= '<div class="eventDate">';
+      $html_res .= '<span class="month">'.$month_name.'</span><br>';
+      $html_res .= '<span class="day"><a href="'.$TZlink.'" target="_blank">'.$day_num.'</a></span>';
+      $html_res .= '<span class="dayTrail"></span></div>';
+      $html_res .= '<div class="eventBody">';
+      $html_res .= '<p><a href="'.$TZlink.'" target="_blank">'.$event->summary.'</a></p>';
+      $html_res .= '</div></div>';
+  }
 
-    return $result;
+  echo $html_res;
 }
 
 // Usage:
 //$foo = get_upcoming_events("GOOGLE_API", "CALENDAR_ID", NUM_OF_EVENTS);
-//echo $foo;
+//output_upcoming_events($lyk);
 
 ?>
