@@ -84,7 +84,7 @@ function output_upcoming_events($events) {
       // prevents google from displaying everything in gmt
       $TZlink = $link . "&ctz=" . $calTimeZone;
 
-      // https://www.php.net/manual/en/function.strtotime.php
+      // https://www.php.net/manual/en/function.strftime.php
       $month_name = strftime("%b", strtotime($eventDateStr));
       $day_num = strftime("%e", strtotime($eventDateStr));
 
