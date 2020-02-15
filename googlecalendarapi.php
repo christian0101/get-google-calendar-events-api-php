@@ -1,11 +1,13 @@
 <?php
 
 /**
- *  Base code provided by Sarah Bailey.
- *  Case Western Reserve University, Cleveland OH.
- *
+ * 
  *  Refactored by Cristian Sorescu christian139601@gmail.com
  *  Dynamic code, introduced get_upcoming_events function.
+ *
+ *  Base code provided by Sarah Bailey.
+ *  Case Western Reserve University, Cleveland OH.
+ * 
  */
 
 // TO DEBUG UNCOMMENT THESE LINES
@@ -56,6 +58,11 @@ function get_upcoming_events($_G_API, $_calendarId, $_max_events = 4) {
     return $cal->events->listEvents($_calendarId, $params);
 }
 
+/**
+ * output_upcoming_events creates html element and outputs it.
+ *
+ * @param $events google calendar list of events to be printed.
+ */
 function output_upcoming_events($events) {
   $html_res = '';
   $calTimeZone = $events->timeZone;
@@ -104,6 +111,6 @@ function output_upcoming_events($events) {
 
 // Usage:
 //$foo = get_upcoming_events("GOOGLE_API", "CALENDAR_ID", NUM_OF_EVENTS);
-//output_upcoming_events($lyk);
+//output_upcoming_events($foo);
 
 ?>
