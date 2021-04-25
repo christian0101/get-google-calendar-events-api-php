@@ -20,7 +20,6 @@ include ('googlecalendarapi.php');
  *        The calendar for this script must have all events viewable in
  *        sharing settings.
  * @param NUM_OF_EVENTS maximum number of events to be requested, default (4).
- * @return Google_Service_Calendar_Events object.
  */
 $upcomingEvents = get_upcoming_events("GOOGLE_API", "CALENDAR_ID", NUM_OF_EVENTS);
 ```
