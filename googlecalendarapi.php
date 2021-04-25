@@ -32,10 +32,6 @@ include(__DIR__.'/vendor/autoload.php');
  * @return Google_Service_Calendar_Events object.
  */
 function get_upcoming_events($_G_API, $_calendarId, $_max_events = 4) {
-    // used in Greece, thus the timezone and locale
-    date_default_timezone_set('Europe/Athens');
-    setlocale(LC_TIME, 'el_GR.UTF-8');
-
     // New Google client
     $client = new Google_Client();
     $client->setApplicationName("Calendar of Upcoming Events");
