@@ -12,15 +12,15 @@ include ('googlecalendarapi.php');
 /**
  * get_upcoming_events gets upcoing events from a google calendar by id.
  *
- * @param $_G_API GOOGLE PUBLIC API key (server),
+ * @param "GOOGLE_API" GOOGLE PUBLIC API key (server),
  *        from DEVELOPERS.GOOGLE.COM for API.
- * @param $_calendarId The calendar id, found in calendar settings.
+ * @param "CALENDAR_ID" The calendar id, found in calendar settings.
  *        If your calendar is through google apps
  *        you may need to change the central sharing settings.
  *        The calendar for this script must have all events viewable in
  *        sharing settings.
- * @param $_max_events maximum number of events to be requested, default (4).
+ * @param NUM_OF_EVENTS maximum number of events to be requested, default (4).
  * @return Google_Service_Calendar_Events object.
  */
-get_upcoming_events("GOOGLE_API", "CALENDAR_ID", NUM_OF_EVENTS);
+$upcomingEvents = get_upcoming_events("GOOGLE_API", "CALENDAR_ID", NUM_OF_EVENTS);
 ```
